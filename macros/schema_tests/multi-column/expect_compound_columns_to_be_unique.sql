@@ -39,7 +39,7 @@ with validation_errors as (
         {% for column in columns -%}
         {{ column }},
         {%- endfor %}
-        count(*) as {{adapter.quote("n_records")}}
+        count(1) as {{adapter.quote("n_records")}}
     from {{ model }}
     where
         1=1
@@ -50,7 +50,7 @@ with validation_errors as (
         {% for column in columns -%}
         {{ column }}{% if not loop.last %},{% endif %}
         {%- endfor %}
-    having count(*) > 1
+    having count(1) > 1
 
 )
 select * from validation_errors
